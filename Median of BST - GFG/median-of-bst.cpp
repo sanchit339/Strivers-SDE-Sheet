@@ -122,29 +122,59 @@ struct Node {
 */
 // your task is to complete the Function
 // Function should return median of the BST
-
-void inorder(vector<int> &store , Node * root){
-    // In-Order  --- > Call -- Push -- Call
+void count(Node * root , int &cnt){
     if(!root) return;
-
-    inorder(store , root -> left);
-    store.push_back(root -> data);
-    inorder(store , root -> right);
+    count(root -> left , cnt);
+    cnt++;
+    count(root -> right , cnt);
 }
 
-float findMedian(struct Node *root) // Using Space complixity
+void check(Node * root , Node * &curr , Node * &prev , int &cnt , int x , int &found){
+
+    if(!root) return;
+    check(root -> left , curr , prev , cnt , x , found);
+
+    // 3 condition can happen 
+    // NULL ,  found  , not found
+    if(prev == NULL){ // first assign right
+        prev = root;
+        cnt++;
+    }
+    else if(cnt == x){
+        cnt++;
+        curr = root;
+        found = 1;
+        return;
+    }
+    else if(found == 0){
+        prev = root;
+        cnt++;
+    }
+
+    check(root -> right , curr , prev , cnt , x , found);
+}
+
+float findMedian(struct Node *root)
 {
-      //Code here
-      vector<int>store;
-      inorder(store , root);
+    int cnt = 0;
+    count(root , cnt);
 
-      int n = store.size();
+    // for even cnt
+    Node * curr = NULL;
+    Node * prev = NULL;
 
-      if(n%2 == 0){
-        int x = store[n / 2];
-        int y = store[n/2 - 1];
+    int c = 1;
+    int x = (cnt / 2) + 1;
 
-        return (float)((x+y) / 2.0);
-      }
-      return store[n/2];
+    int found = 0;
+    check(root , curr , prev , c , x , found);
+
+    if(cnt % 2 == 0){
+        float ans = ((curr -> data + prev -> data) * 1.0) / (2 * 1.0);
+        return ans;
+    }
+    else{
+        float ans = (curr -> data) * 1.0;
+        return ans;
+    }
 }
