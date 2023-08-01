@@ -26,11 +26,11 @@ class Solution {
         
         vector<int>vis(V,0);
         
-        for(int i = 0 ; i < V ; ++i){
-            if(!vis[i]){
-                dfsHelp(i , ans , vis , adj); // for each i run dfs
-            }
-        }
+        // for(int i = 0 ; i < V ; ++i){
+        //     if(!vis[i]){
+                dfsHelp(0 , ans , vis , adj); // for each i run dfs
+            // }
+        // }
         return ans;
     }
 };
