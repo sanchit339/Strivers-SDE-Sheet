@@ -39,9 +39,6 @@ public:
         return ans;
     }
 };
-/**
- * @brief TC = N! * N (for loop)
- */
 class Solution {
 private:
     void Permutation(int idx , vector<int>& arr , vector<vector<int>>& ans){
@@ -51,9 +48,9 @@ private:
             return;
         }
 
-        for(int i = 0 ; i < arr.size() ; i++){
+        for(int i = idx ; i < arr.size() ; i++){
             swap(arr[i] , arr[idx]);
-            Permutation(0 , arr , ans);
+            Permutation(idx + 1 , arr , ans);
             swap(arr[i] , arr[idx]);
         }
     }
