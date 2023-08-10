@@ -1,6 +1,17 @@
+/**
+ * @file PostOrder2Stack.cpp
+ * 
+ * @brief > 2 Stack Implementation
+ *        > One to Iterate and One to strore the answer  
+ * 
+ * @date 2023-08-10
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #include<bits/stdc++.h>
 using namespace std;
-
 
 struct TreeNode {
     int val;
