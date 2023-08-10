@@ -26,7 +26,7 @@ private:
     int maxDia(TreeNode* root , int & maxi){
         if(root == NULL) return 0;
 
-        int lh =maxDia (root -> left , maxi);
+        int lh = maxDia (root -> left , maxi);
         int rh = maxDia (root -> right , maxi);
 
         maxi = max(maxi , rh + lh);
