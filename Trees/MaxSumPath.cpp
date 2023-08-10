@@ -1,8 +1,9 @@
 /**
  * @file MaxSumPath.cpp
  * @author Striver
+ * 
  * @brief Just Like Max Height return max sum
- * @version 0.1
+ * 
  * @date 2023-08-09
  */
 

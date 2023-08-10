@@ -1,7 +1,7 @@
 /**
  * @file balanced_BinTree.cpp
  * @author Striver
- * @brief Return -1 logic
+ * @brief Return -1 logic (Diff Between heights is 1)
  * @version 0.1
  * @date 2023-08-08
  */

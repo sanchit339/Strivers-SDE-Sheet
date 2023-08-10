@@ -2,7 +2,7 @@
  * @file Diameter.cpp
  * @author Striver
  * 
- * @brief Maintain Maxi
+ * @brief Maintain Single Maxi
  * 
  * @version 0.1
  * @date 2023-08-08
@@ -29,9 +29,9 @@ private:
         int lh = maxDia (root -> left , maxi);
         int rh = maxDia (root -> right , maxi);
 
-        maxi = max(maxi , rh + lh);
+        maxi = max(maxi , rh + lh); // max Of Overall Tree 
 
-        return max(lh , rh) + 1;
+        return max(lh , rh) + 1; // maxi of Single Traversal
     }
 public:
     int diameterOfBinaryTree(TreeNode* root) {
