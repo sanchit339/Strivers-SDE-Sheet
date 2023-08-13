@@ -32,25 +32,18 @@ class Solution {
 
         for(int i = 0 ; i < n ; i++){
             for(int j = 0 ; j < m ; j++){
-                // if(i == 0 || j == 0 || i == n - 1 || j == m - 1){
-                    if(grid[i][j] == 1 && !vis[i][j]){
-                        vector<pair<int,int>> v;
-                        dfs(i , j , grid , vis , v , i , j);
-                        // for(auto it : v){
-                        //     cout << it.first << " " << it.second << " . ";
-                        // }
-                        // cout << endl;
-                        s.insert(v);
-                    }
-                // }
+                if(grid[i][j] == 1 && !vis[i][j]){
+                    vector<pair<int,int>> v;
+                    dfs(i , j , grid , vis , v , i , j);
+                    s.insert(v);
+                }
             }
         }
-
         int ans = s.size();
-
         return ans;
     }
 };
+
 
 
 //{ Driver Code Starts.
