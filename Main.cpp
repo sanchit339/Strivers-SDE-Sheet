@@ -1,25 +1,34 @@
 #include<bits/stdc++.h>
 using namespace std;
-
-int solve(int N, int K , vector<int> &v){
-    int result = 0;
-    for(int i = 0 ; i < N ; i++){
-        vector<pair<int,int>> temp;
-        for(int j = 0 ; j < 3 ; j++){
-            temp.push_back({v[i + j] , i + j});
+class Solution{
+private:
+    void cnt(int arr[] , int n , int &cnt){
+        int maxi = INT_MIN;
+        int local = 0;
+        int i = 0;
+        while(i < n){
+            if(arr[i] == 1){
+                local++;
+                i++;
+            } 
+            else{
+                break;
+            }
         }
-        auto it = max_element(temp.begin() , temp.end());
-        // result += max(0 , it.first);
+        while(i < n){
+            local++;
+            if(arr[i] == 1){
+                maxi = max(maxi , local);
+                local = 0;
+            } 
+            i++;
+        }
+        cnt = maxi;
     }
-}
-int main(){
-    int t;
-    cin >> t;
-    while (t--){
-        int N , K;
-        cin >> N >> K;
-        vector<int>v;
-        for(auto &i:v) cin >> i;
-        solve(N , K , v);
+public:
+    int maxOnes(int a[], int n){
+        int maxi = 0;
+        cnt(a , n , maxi);
+        return maxi;
     }
-}
+};
