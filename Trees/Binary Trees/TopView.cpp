@@ -53,3 +53,32 @@ class Solution
         return ans;
     }
 };
+
+
+class Solution{
+    private:
+        void dfs(int node , vector<int> adj[] , vector<int> vis){
+            vis[node] = 1;
+            for(auto child : adj[node]){
+                if(vis[child]) continue;
+                dfs(child , adj , vis);
+            }
+        }
+
+        void bfs(int node , vector<int> adj[] , vector<int> vis){
+            queue<int>q;
+            q.push(node);
+            vis[node] = 1;
+            while(!q.empty()){
+                int top = q.front();
+                q.pop();
+
+                for(auto child : adj[top]){
+                    if(!vis[child]){
+                        q.push(child);
+                        cout << child << " ";
+                    }
+                }
+            }
+        }
+};
