@@ -1,6 +1,17 @@
+/**
+ * @file Main.cpp
+ * @author ATCoder DP Contest
+ * 
+ * @brief DP 1 and 1 _ 1 step 
+ * 
+ * @version 0.1
+ * @date 2023-08-21
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #include<bits/stdc++.h>
 using namespace std;
-
 
 class Solution {
 private:
