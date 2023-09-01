@@ -13,36 +13,42 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-class Solution {
-private:
-    int solve(int n , vector<int> &jump , vector<int> &dp){
-        if(n == 0)
-            return 0;
-        
-        if(dp[n] != -1)
-            return dp[n];
-
-        int first = solve(n - 1 , jump , dp) + abs(jump[n] - jump[n - 1]);
-        int second = INT_MAX;
-        if(n > 1)
-            second = abs(jump[n] - jump[n - 2]) + solve(n - 2 , jump , dp);
-        
-        return dp[n] = min(first , second);
-    }
-public:
-    int frogJump(int n , vector<int> &jump){
-        vector<int> dp(n , -1);
-        dp[0] = 0;
-        return solve(n - 1 , jump , dp);
+struct Node
+{
+    int data;
+    Node* next;
+    
+    Node(int x){
+        data = x;
+        next = NULL;
     }
 };
-
-
-int main(){
-    int n; cin >> n;
-    vector<int> v(n);
-    for(auto &it : v) cin >> it;
-
-    Solution ans;
-    cout << ans.frogJump(n , v);
-}
+class Solution{
+private:
+    Node * reverse(Node* head){
+        Node* curr = head , *prev = NULL , *next = NULL;
+        while (head){
+            next = curr -> next;
+            curr -> next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+public:
+    Node *compute(Node *head){
+        Node* temp = reverse(head);
+        int maxi = temp -> data;
+        Node *temp2 = temp;
+        while(temp){
+            if(temp -> next -> data > maxi){
+                maxi = temp -> data;
+                temp = temp -> next;
+            }
+            else{
+                temp -> next = temp -> next -> next;
+            }
+        }
+        return reverse(temp2);
+    }
+};
