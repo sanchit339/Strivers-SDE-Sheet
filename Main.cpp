@@ -14,35 +14,136 @@
 using namespace std;
 
 class Solution {
-private:
-    int solve(int n , vector<int> &jump , vector<int> &dp){
-        if(n == 0)
-            return 0;
-        
-        if(dp[n] != -1)
-            return dp[n];
-
-        int first = solve(n - 1 , jump , dp) + abs(jump[n] - jump[n - 1]);
-        int second = INT_MAX;
-        if(n > 1)
-            second = abs(jump[n] - jump[n - 2]) + solve(n - 2 , jump , dp);
-        
-        return dp[n] = min(first , second);
+public:
+    bool isPrime(string s){
+        int n = stoi(s);
+        for(int i = 2 ; i <= sqrt(n) ; i++){
+            if(n % i == 0){
+                return false;
+            }
+        }
+        return true;
     }
 public:
-    int frogJump(int n , vector<int> &jump){
-        vector<int> dp(n , -1);
-        dp[0] = 0;
-        return solve(n - 1 , jump , dp);
+    int StringToInt(string v){
+        int result = 0 ;
+        for (char bit : v) {
+            result = (result << 1) | (bit - '0');
+        }
+        return result;
+    }
+public: 
+    void solve(int idx , string s , string temp , vector<string> &subSeq){
+        int n = s.size();
+        if(idx == n){
+            subSeq.push_back(temp);
+            return;  
+        } 
+        subSeq.push_back(temp);
+
+        temp.push_back(s[idx]);
+        solve(idx + 1 , s , temp , subSeq);
+        temp.pop_back();
+        solve(idx + 1, s , temp , subSeq);
     }
 };
 
-
 int main(){
-    int n; cin >> n;
-    vector<int> v(n);
-    for(auto &it : v) cin >> it;
-
+    string s; cin >> s;
+    int idx = 0;
+    vector<string> subSeq;
+    string temp;
     Solution ans;
-    cout << ans.frogJump(n , v);
+    ans.solve(idx , s , temp , subSeq);
+
+    // cout << stoi(s) << endl;
+    int prime = INT_MIN;
+    for(string str : subSeq){
+        if(str.size()){
+            if(ans.isPrime(str)){
+                int result = 0;
+                result = ans.StringToInt(str);
+                prime = max(prime , result);
+            }
+        }
+    }
+    cout << prime << endl;
 }
+
+/*
+1 
+1 0 
+1 0 1 
+1 0 1 1 
+1 0 1 
+1 0 
+1 0 1 
+1 0 
+1 
+1 1 
+1 1 1 
+1 1 
+1 
+1 1 
+1 
+
+0 
+0 1 
+0 1 1 
+0 1 
+0 
+0 1 
+0 
+
+1 
+1 1 
+1 
+
+1
+*/
+
+/*
+1 0 1 1 
+1 0 1 
+1 0 1 
+1 0 
+1 1 1 
+1 1 
+1 1 
+1 
+0 1 1 
+0 1 
+0 1 
+0 
+1 1 
+1 
+1
+*/
+/*
+1 
+1 0 
+1 0 1 
+1 0 1 1 
+1 0 1 
+1 0 
+1 0 1 
+1 0 
+1 
+1 1 
+1 1 1 
+1 1 
+1 
+1 1 
+1 
+0 
+0 1 
+0 1 1 
+0 1 
+0 
+0 1 
+0 
+1 
+1 1 
+1 
+1
+*/

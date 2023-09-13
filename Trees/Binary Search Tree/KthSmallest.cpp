@@ -23,21 +23,3 @@ struct TreeNode {
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-class Solution {
-private:
-    void InOrder(TreeNode* root , int k , int &cnt, int& ans){
-        if(root == NULL) return;
-
-        InOrder(root -> left , k , cnt , ans);
-        cnt++;
-        if(cnt == k) ans = root -> val;
-        InOrder(root -> right , k , cnt , ans);
-    }
-
-public:
-    int kthSmallest(TreeNode* root, int k) {
-        int cnt = 0 , ans = 0;
-        InOrder(root , k , cnt , ans);
-        return ans;
-    }
-};
