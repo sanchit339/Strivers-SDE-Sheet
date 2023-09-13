@@ -13,47 +13,41 @@ using namespace std;
 
 class Solution{
 private:
-    void dfs(int i , int j , vector<vector<char>> &mat , vector<vector<char>> &ans , vector<vector<int>> &vis){
-        int n = mat.size() , m = mat[0].size();
-        if(i < 0 || j < 0) return;
-        if(i >= n || j >= m) return;
-        if(mat[i][j] == 'X') return;
+	void solve(int i , int j , int n , int m , vector<vector<char>> &mat , vector<vector<char>> &ans , vector<vector<int>> &vis){
+		if( i < 0 || j < 0) return;
+		if(i >= n || j >= m) return;
+		if(mat[i][j] == 'X' || vis[i][j]) return;
+		
+		ans[i][j] = 'O';
+		vis[i][j] = 1;
 
-        ans[i][j] = 'O';
-        vis[i][j] = 1;
-
-        dfs(i + 1 , j , mat , ans , vis);
-        dfs(i - 1 , j , mat , ans , vis);
-        dfs(i , j + 1 , mat , ans , vis);
-        dfs(i , j - 1 , mat , ans , vis);
-
-    }
+		solve( i - 1 , j , n , m , mat , ans , vis);
+		solve( i + 1 , j , n , m , mat , ans , vis);
+		solve( i , j - 1 , n , m , mat , ans , vis);
+		solve( i , j + 1 , n , m , mat , ans , vis);
+	}
 public:
-    vector<vector<char>> fill(int n, int m, vector<vector<char>> mat){
-        vector<vector<char>> ans (n , vector<char>(m , 'X'));
-        vector<vector<int>> vis(n , vector<int>(m , 0));
-
-        for(int i = 0 ; i < m ; i++){
-            if(mat[0][i] == 'O' && !vis[0][i]){
-                dfs(0 , i , mat , ans , vis);
-            }
-        }
-        for(int i = 0 ; i < n ; i++){
-            if(mat[i][m - 1] == 'O' && !vis[i][m - 1]){
-                dfs( i , m - 1 , mat , ans , vis);
-            }
-        }
-        for(int i = 0 ; i < n ; i++){
-            if(mat[n - 1][i] == 'O' && !vis[n - 1][i]){
-                dfs( n - 1 , i , mat , ans , vis);
-            }
-        }
-        for(int i = 0 ; i < n ; i++){
-            if(mat[i][0] == 'O' && !vis[i][0]){
-                dfs( i , 0 , mat , ans , vis);
-            }
-        }
-        return ans;
+    vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
+    {
+        // code here
+		vector<vector<char>> ans(n , vector<char>(m , 'X'));
+		vector<vector<int>> vis(n , vector<int>(m , 0));
+		for(int i = 0 ; i < n ; i++){
+			if(!vis[i][0] && mat[i][0] == 'O')
+				solve(i , 0 , n , m , mat , ans , vis);
+		}
+		for(int i = 0 ; i < n ; i++){
+			if(!vis[i][m - 1] && mat[i][m - 1] == 'O')
+				solve(i , m - 1 , n , m , mat , ans , vis);
+		}
+		for(int j = 0 ; j < m ; j++){
+			if(!vis[0][j] && mat[0][j] == 'O')
+				solve(0 , j , n , m , mat , ans , vis);
+		}
+		for(int j = 0 ; j < m ; j++){
+			if(!vis[n - 1][j] && mat[n - 1][j] == 'O')
+				solve(n - 1 , j , n , m , mat , ans , vis);
+		}
+		return ans;
     }
 };
-

@@ -13,42 +13,137 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-struct Node
-{
-    int data;
-    Node* next;
-    
-    Node(int x){
-        data = x;
-        next = NULL;
-    }
-};
-class Solution{
-private:
-    Node * reverse(Node* head){
-        Node* curr = head , *prev = NULL , *next = NULL;
-        while (head){
-            next = curr -> next;
-            curr -> next = prev;
-            prev = curr;
-            curr = next;
+class Solution {
+public:
+    bool isPrime(string s){
+        int n = stoi(s);
+        for(int i = 2 ; i <= sqrt(n) ; i++){
+            if(n % i == 0){
+                return false;
+            }
         }
-        return prev;
+        return true;
     }
 public:
-    Node *compute(Node *head){
-        Node* temp = reverse(head);
-        int maxi = temp -> data;
-        Node *temp2 = temp;
-        while(temp){
-            if(temp -> next -> data > maxi){
-                maxi = temp -> data;
-                temp = temp -> next;
-            }
-            else{
-                temp -> next = temp -> next -> next;
-            }
+    int StringToInt(string v){
+        int result = 0 ;
+        for (char bit : v) {
+            result = (result << 1) | (bit - '0');
         }
-        return reverse(temp2);
+        return result;
+    }
+public: 
+    void solve(int idx , string s , string temp , vector<string> &subSeq){
+        int n = s.size();
+        if(idx == n){
+            subSeq.push_back(temp);
+            return;  
+        } 
+        subSeq.push_back(temp);
+
+        temp.push_back(s[idx]);
+        solve(idx + 1 , s , temp , subSeq);
+        temp.pop_back();
+        solve(idx + 1, s , temp , subSeq);
     }
 };
+
+int main(){
+    string s; cin >> s;
+    int idx = 0;
+    vector<string> subSeq;
+    string temp;
+    Solution ans;
+    ans.solve(idx , s , temp , subSeq);
+
+    // cout << stoi(s) << endl;
+    int prime = INT_MIN;
+    for(string str : subSeq){
+        if(str.size()){
+            if(ans.isPrime(str)){
+                int result = 0;
+                result = ans.StringToInt(str);
+                prime = max(prime , result);
+            }
+        }
+    }
+    cout << prime << endl;
+}
+
+/*
+1 
+1 0 
+1 0 1 
+1 0 1 1 
+1 0 1 
+1 0 
+1 0 1 
+1 0 
+1 
+1 1 
+1 1 1 
+1 1 
+1 
+1 1 
+1 
+
+0 
+0 1 
+0 1 1 
+0 1 
+0 
+0 1 
+0 
+
+1 
+1 1 
+1 
+
+1
+*/
+
+/*
+1 0 1 1 
+1 0 1 
+1 0 1 
+1 0 
+1 1 1 
+1 1 
+1 1 
+1 
+0 1 1 
+0 1 
+0 1 
+0 
+1 1 
+1 
+1
+*/
+/*
+1 
+1 0 
+1 0 1 
+1 0 1 1 
+1 0 1 
+1 0 
+1 0 1 
+1 0 
+1 
+1 1 
+1 1 1 
+1 1 
+1 
+1 1 
+1 
+0 
+0 1 
+0 1 1 
+0 1 
+0 
+0 1 
+0 
+1 
+1 1 
+1 
+1
+*/

@@ -3,6 +3,9 @@
         "vector": "cpp",
         "iosfwd": "cpp",
         "random": "cpp",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "iostream": "cpp",
+        "string": "cpp",
+        "__locale": "cpp"
     }
 }
