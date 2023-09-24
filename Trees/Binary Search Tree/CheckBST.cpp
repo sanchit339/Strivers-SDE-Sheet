@@ -10,19 +10,17 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
-
 class Solution {
 private:
-    bool checkBST(TreeNode* root , long long int mini , long long int maxi){
+    bool solve(TreeNode* root , long long int mini , long long int maxi){
         if(root == NULL) return true;
-        if(root -> val > maxi && root -> val < mini) return false;
+        if(root -> val >= maxi || root -> val <= mini) return false;
 
-        return checkBST(root -> left , mini , root -> val) 
-        && checkBST(root -> right , root -> val , maxi);
+        return solve(root -> left , mini , root -> val) && solve(root -> right , root -> val , maxi);
     }
 public:
     bool isValidBST(TreeNode* root) {
-        long long int mini = LLONG_MIN , maxi = LLONG_MAX;
-        return checkBST(root , mini , maxi);
+        long long int maxi = LLONG_MAX , mini = LLONG_MIN;
+        return solve(root , mini , maxi);
     }
 };
