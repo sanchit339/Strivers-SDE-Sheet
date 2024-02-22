@@ -1,66 +1,74 @@
-#include <iostream>
-#include <vector>
-#include <stack>
+#include <bits/stdc++.h>
 using namespace std;
 
-class Graph {
-    int V;
-    vector<vector<int>> adj;
+typedef pair<int, int> pii;
+
+class Solution {
+private:
+    const int INF = 1e9;
+    const int N = 1e5;
+
+private:
+    int dijkstra(int V, vector<pair<int, int>> graph[], int S , int end) {
+        vector<int> dist(N + 1, INF);
+
+        set<pair<int, int>> st;
+        st.insert({0, S});
+        dist[S] = 0;
+
+        while (!st.empty()) {
+            auto top = *st.begin();
+            int node = top.second;
+
+            st.erase(st.begin());
+
+            for (auto child : graph[node]) {
+                int child_v = child.first;
+                int child_dist = child.second;
+
+                if (dist[node] + child_dist < dist[child_v]) {
+                    dist[child_v] = dist[node] + child_dist;
+                    st.insert({dist[child_v], child_v});
+                }
+            }
+        }
+        int ans = dist[end];
+        return ans;
+    }
 
 public:
-    Graph(int V) {
-        this->V = V;
-        adj.resize(V);
-    }
-
-    void addEdge(int u, int v) {
-        adj[u].push_back(v);
-    }
-
-    void DFSUtil(int v, vector<bool>& visited) {
-        visited[v] = true;
-        cout << v << " ";
-
-        for (int u : adj[v]) {
-            if (!visited[u])
-                DFSUtil(u, visited);
+    int networkDelayTime(vector<vector<int>> &times, int n, int k , int end) {
+        // convert to adj
+        vector<pair<int, int>> graph[N + 1];
+        for (auto vec : times) {
+            graph[vec[0]].push_back({vec[1], vec[2]});
         }
-    }
-
-    void DFS(int start) {
-        vector<bool> visited(V, false);
-        DFSUtil(start, visited);
+        return dijkstra(n, graph, k, end);
     }
 };
 
 int main() {
-    Graph g(5);
+    Solution solution;
 
-    g.addEdge(0, 1);
-    g.addEdge(1, 0);
-    g.addEdge(2, 0);
-    g.addEdge(3, 1);
-    g.addEdge(4, 2);
+    int n; cin >> n;
+    for (int i = 0; i < n; i++){
+        int x; cin >> x;
+    }
 
-    cout << "DFS starting from node 1: ";
-    g.DFS(0);
-    cout << endl;
+    int connections;
+    cin >> connections;
 
-    cout << "DFS starting from node 2: ";
-    g.DFS(1);
-    cout << endl;
+    vector<vector<int>> times(connections , vector<int>(3));
+    for(auto &it : times){
+        cin >> it[0] >> it[1] >> it[2];
+    }
 
-    cout << "DFS starting from node 3: ";
-    g.DFS(2);
-    cout << endl;
+    int start, end;
+    cin >> start;
+    cin >> end;
 
-    cout << "DFS starting from node 4: ";
-    g.DFS(3);
-    cout << endl;
-
-    cout << "DFS starting from node 5: ";
-    g.DFS(4);
-    cout << endl;
+    int result = solution.networkDelayTime(times, n , start , end);
+    cout << result << "\n";
 
     return 0;
 }
