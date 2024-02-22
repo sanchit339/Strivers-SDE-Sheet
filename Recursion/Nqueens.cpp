@@ -38,6 +38,7 @@ public:
                 temp[i] = s;
             }
             // maintain hashing
+            // its 2n - 1 coz you get the coordinates by x - y - 1
             vector<int> leftRow( n , 0) , upperDia(2 * n - 1, 0) , lowerDia(2 * n - 1 , 0); // -1 coz that is occupied
             placeQueen(0 , n , ans , temp , leftRow , upperDia , lowerDia);
             return ans;
