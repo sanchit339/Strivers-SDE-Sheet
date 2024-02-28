@@ -4,6 +4,13 @@
  * 
  * @brief > Standerd Question 
  *        > Find min / short 
+ *        
+ *        > As there are multiple rotten oranges and we have to go all the directions
+ *        > Min Time we should have  
+ *        > So, we are using the BFS technique  
+ * 
+ *        > TC = NxM + ( NxM * 4 (loop)) 
+ *        > SC = NxM  
  * 
  * @version 0.1
  * @date 2023-08-12
@@ -40,12 +47,14 @@ public:
         vector<vector<int>> vis(n , vector<int>(m , 0));
         queue<pair<pair<int,int> , int>> q; // ({x , y} , t)
 
+        int cntFresh = 0;
         for(int i = 0 ; i < n ; ++i){
             for(int j = 0 ; j < m ; ++j){
                 if(grid[i][j] == 2){
                     q.push({{i , j} , 0}); // initial start
                     vis[i][j] = 2;
                 }
+                else if(vis[i][j] == 1) cntFresh++;
                 else{
                     vis[i][j] = 0;
                 }
@@ -75,7 +84,13 @@ public:
                 }
             }
         }
+
+        // As we have to return true if all the oranges gets rotten
         // if No one Was Rotten return -1
+
+        if(MinTime != cntFresh) return -1;
+
+        // Additional Code
         for(int i = 0 ; i < n ; i++){
             for(int j = 0 ; j < m ; ++j){
                 if(vis[i][j] != 2 && grid[i][j] == 1){

@@ -1,3 +1,18 @@
+/**
+ * @file Bipertite.cpp
+ * @author your name (you@domain.com)
+ * 
+ * @brief > The Adjacent colours are unidentical (with Only 2 Colours)
+ *        > Liner graphs with no cycles are always bipertite
+ *        > With Even Cycle Length are Bipertite
+ * 
+ * @version 0.1
+ * @date 2024-02-27
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
+
 #include<bits/stdc++.h>
 using namespace std;
 

@@ -1,8 +1,11 @@
 /**
  * @file DFS.cpp
  * 
- * @brief 
- * 
+ * @brief SC = O(N) +  O(N)  +  O(N)
+ *           Storing  Visited  Recursion Stack Space
+ *        
+ *        TC (For Undirected 2E) O(N) + 2E = O(N)
+ *        TC (For Directed E(Depends)) 
  * @version 0.1
  * @date 2023-08-11
  */

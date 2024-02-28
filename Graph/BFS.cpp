@@ -22,12 +22,12 @@ class Solution {
         vector<int> vis(V , 0);
         queue<int>q;
         q.push(0);
-        while(!q.empty()){
+        while(!q.empty()){ // O(N)
             int top = q.front();
             q.pop();
             vis[top] = true;
             ans.push_back(top);
-            for(auto it : adj[top]){
+            for(auto it : adj[top]){ // 2E so , total TC = O(N) * 2E = O(N)
                 if(!vis[it]){
                     q.push(it);
                     vis[it] = true;
